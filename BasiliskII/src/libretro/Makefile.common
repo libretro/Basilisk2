@@ -1,0 +1,34 @@
+#excluded files
+#sys_libr.cpp $(SLIRP_SRCS) sshpty.c strlcpy.c
+
+LIBRETRO_SRCS = video_libr.cpp audio_libr.cpp user_strings_libr.cpp timer_libr.cpp ../dummy/ether_dummy.cpp ../dummy/scsi_dummy.cpp ../dummy/serial_dummy.cpp ../dummy/xpram_dummy.cpp
+
+SLIRP_SRCS = \
+../slirp/bootp.c     ../slirp/ip_output.c  ../slirp/tcp_input.c  \
+../slirp/cksum.c     ../slirp/mbuf.c       ../slirp/tcp_output.c \
+../slirp/debug.c     ../slirp/misc.c       ../slirp/tcp_subr.c   \
+../slirp/if.c        ../slirp/sbuf.c       ../slirp/tcp_timer.c  \
+../slirp/ip_icmp.c   ../slirp/slirp.c      ../slirp/tftp.c       \
+../slirp/ip_input.c  ../slirp/socket.c     ../slirp/udp.c
+
+XPLAT_SRCS = ../CrossPlatform/vm_alloc.cpp ../CrossPlatform/sigsegv.cpp ../CrossPlatform/video_blit.cpp
+
+SYSSRCS = ../extfs_unix.cpp prefs_editor_gtk.cpp main_unix.cpp prefs_unix.cpp clip_unix.cpp
+
+CPUSRCS = ../uae_cpu/basilisk_glue.cpp ../uae_cpu/memory.cpp ../uae_cpu/newcpu.cpp ../uae_cpu/readcpu.cpp ../uae_cpu/fpu/fpu_ieee.cpp cpustbl.cpp cpudefs.cpp cpuemu1.cpp cpuemu2.cpp cpuemu3.cpp cpuemu4.cpp cpuemu5.cpp cpuemu6.cpp cpuemu7.cpp cpuemu8.cpp
+
+DEFS = -DHAVE_CONFIG_H -DOPTIMIZED_FLAGS -DFPU_IEEE
+
+#CPPFLAGS = -I./../include -I./. -I. -I./../CrossPlatform -I./../uae_cpu -I./../slirp
+
+SOURCES_CXX := ../main.cpp ../prefs.cpp ../prefs_items.cpp \
+../rom_patches.cpp ../slot_rom.cpp ../rsrc_patches.cpp \
+../emul_op.cpp ../macos_util.cpp ../xpram.cpp ../timer.cpp \
+../adb.cpp ../serial.cpp ../ether.cpp ../extfs.cpp \
+../sony.cpp ../disk.cpp ../cdrom.cpp ../scsi.cpp ../video.cpp \
+../audio.cpp disk_sparsebundle.cpp \
+tinyxml2.cpp \
+../user_strings.cpp \
+$(XPLAT_SRCS) $(LIBRETRO_SRCS) $(SYSSRCS) $(CPUSRCS)
+
+INCFLAGS += -I./../include -I./. -I. -I./../CrossPlatform -I./../uae_cpu -I./../slirp
