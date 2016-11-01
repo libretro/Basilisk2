@@ -15,7 +15,6 @@ else ifneq ($(findstring win,$(UNAME)),)
 endif
 endif
 
-DYNAFLAGS :=
 TARGET_NAME := basilisk2
 
 # system platform

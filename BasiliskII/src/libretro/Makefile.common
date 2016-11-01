@@ -1,7 +1,9 @@
 #excluded files
-#sys_libr.cpp $(SLIRP_SRCS) sshpty.c strlcpy.c ../CrossPlatform/sigsegv.cpp
+#sys_libr.cpp $(SLIRP_SRCS) sshpty.c strlcpy.c ../CrossPlatform/sigsegv.cpp cpudefs.cpp
 
-LIBRETRO_COMMON = ./libretro-common/memmap.c ./libretro-common/memalign.c
+LIBRETRO_COMM_DIR := $(CORE_DIR)/libretro-common
+
+SOURCES_C := $(LIBRETRO_COMM_DIR)/memmap/memmap.c $(LIBRETRO_COMM_DIR)/memmap/memalign.c
 
 LIBRETRO_SRCS = libretro.cpp video_libr.cpp audio_libr.cpp user_strings_libr.cpp timer_libr.cpp
 
@@ -19,9 +21,9 @@ XPLAT_SRCS = ../CrossPlatform/vm_alloc.cpp ../CrossPlatform/video_blit.cpp
 
 SYSSRCS = extfs_unix.cpp prefs_unix.cpp
 
-CPUSRCS = ../uae_cpu/basilisk_glue.cpp ../uae_cpu/memory.cpp ../uae_cpu/newcpu.cpp ../uae_cpu/readcpu.cpp ../uae_cpu/fpu/fpu_ieee.cpp cpustbl.cpp cpudefs.cpp cpuemu1.cpp cpuemu2.cpp cpuemu3.cpp cpuemu4.cpp cpuemu5.cpp cpuemu6.cpp cpuemu7.cpp cpuemu8.cpp
+CPUSRCS = ../uae_cpu/basilisk_glue.cpp ../uae_cpu/memory.cpp ../uae_cpu/newcpu.cpp ../uae_cpu/readcpu.cpp ../uae_cpu/fpu/fpu_ieee.cpp ../uae_cpu/cpustbl.cpp ../uae_cpu/cpuemu.cpp
 
-COMMONFLAGS += -DHAVE_CONFIG_H -DOPTIMIZED_FLAGS -DFPU_IEEE
+COMMONFLAGS += -DHAVE_CONFIG_H -DFPU_IEEE
 
 #CPPFLAGS = -I./../include -I./. -I. -I./../CrossPlatform -I./../uae_cpu -I./../slirp
 
@@ -36,4 +38,4 @@ tinyxml2.cpp \
 $(XPLAT_SRCS) $(SYSSRCS) $(CPUSRCS) $(UNUSEDINTERFACE) $(LIBRETRO_COMMON) $(LIBRETRO_SRCS)
 
 INCFLAGS += -I./../include -I./. -I. -I./../CrossPlatform -I./../uae_cpu -I./../slirp
-INCFLAGS += -I./libretro-common/include
+INCFLAGS += -I$(LIBRETRO_COMM_DIR)/include
