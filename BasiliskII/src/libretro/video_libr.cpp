@@ -28,16 +28,12 @@ static void add_window_modes(video_depth depth)
 
 bool VideoInit(bool classic)
 {
-   //video_depth default_depth
-   
    if(classic)add_mode(512, 342, 0x80, 64, VDEPTH_1BIT);
    else {
       for (unsigned d=VDEPTH_1BIT; d<=VDEPTH_32BIT; d++) {
          add_window_modes(video_depth(d));
       }
    }
-   
-   //default_depth = VDEPTH_32BIT;
    
    return initlibretrovideo();
 }

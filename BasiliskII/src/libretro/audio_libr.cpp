@@ -33,7 +33,7 @@
 void AudioInit(void)
 {
 	// Init audio status and feature flags
-	AudioStatus.sample_rate = 44100 << 16;
+	AudioStatus.sample_rate = 48000 << 16;
 	AudioStatus.sample_size = 16;
 	AudioStatus.channels = 2;
 	AudioStatus.mixer = 0;
@@ -49,8 +49,8 @@ void AudioInit(void)
 	if (PrefsFindBool("nosound"))
 		return;
 
-	// Audio not available
-	audio_open = false;
+	// Everything OK
+	audio_open = true;
 }
 
 

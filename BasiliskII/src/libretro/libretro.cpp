@@ -2,6 +2,13 @@
 
 #include "libretro.h"
 
+//must be included first or other headers will throw errors
+#include "sysdeps.h"
+
+#include "sys.h"
+#include "prefs.h"
+#include "vm_alloc.h"
+
 retro_log_printf_t log_cb;
 retro_video_refresh_t video_cb;
 
@@ -12,14 +19,52 @@ retro_environment_t environ_cb;
 static retro_input_poll_t input_poll_cb;
 static retro_input_state_t input_state_cb;
 
+// CPU and FPU type, addressing mode
+int CPUType;
+bool CPUIs68060;
+int FPUType;
+bool TwentyFourBitAddressing;
+
+void QuitEmulator(){
+   // Exit 680x0 emulation
+   Exit680x0();
+   // Deinitialize everything
+   ExitAll();
+   // Exit VM wrappers
+   vm_exit();
+   // Exit system routines
+   SysExit();
+   // Exit preferences
+   PrefsExit();
+   exit(0);
+}
+
 void retro_init(void)
 {
-
+   // Read preferences
+   PrefsInit(vmdir, argc, argv);
+   // Init system routines
+   SysInit();
+   // Initialize VM system
+   vm_init();
+   // Initialize everything
+   if (!InitAll(vmdir))QuitEmulator();
+   // Start 68k and jump to ROM boot routine
+   Start680x0();//may need to be moved
 }
 
 void retro_deinit(void)
 {
-
+   // Exit 680x0 emulation
+   Exit680x0();
+   // Deinitialize everything
+   ExitAll();
+   // Exit VM wrappers
+   vm_exit();
+   // Exit system routines
+   SysExit();
+   // Exit preferences
+   PrefsExit();
 }
 
 unsigned retro_api_version(void)
@@ -45,19 +90,18 @@ void retro_get_system_info(struct retro_system_info *info)
 void retro_get_system_av_info(struct retro_system_av_info *info)
 {
    info->timing.fps = 60.0;
-   info->timing.sample_rate = 30000.0;
+   info->timing.sample_rate = 48000.0;
 
-   info->geometry.base_width   = SCREEN_WIDTH;
-   info->geometry.base_height  = SCREEN_HEIGHT;
-   info->geometry.max_width    = SCREEN_WIDTH;
-   info->geometry.max_height   = SCREEN_HEIGHT;
+   info->geometry.base_width   = 512;
+   info->geometry.base_height  = 384;
+   info->geometry.max_width    = 1600;
+   info->geometry.max_height   = 1200;
    info->geometry.aspect_ratio = 1;
 }
 
 void retro_set_environment(retro_environment_t cb)
 {
-   
-}
+   environ_cb = cb;
 }
 
 void retro_set_audio_sample(retro_audio_sample_t cb)
@@ -87,7 +131,7 @@ void retro_set_video_refresh(retro_video_refresh_t cb)
 
 void retro_reset(void)
 {
-   game_reset();
+   
 }
 
 void retro_run(void)

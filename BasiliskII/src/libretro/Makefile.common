@@ -5,7 +5,7 @@ LIBRETRO_COMM_DIR := $(CORE_DIR)/libretro-common
 
 SOURCES_C := $(LIBRETRO_COMM_DIR)/memmap/memmap.c $(LIBRETRO_COMM_DIR)/memmap/memalign.c
 
-LIBRETRO_SRCS = libretro.cpp video_libr.cpp audio_libr.cpp user_strings_libr.cpp timer_libr.cpp
+LIBRETRO_SRCS = libretro.cpp video_libr.cpp audio_libr.cpp user_strings_libr.cpp timer_libr.cpp vm_alloc.cpp
 
 UNUSEDINTERFACE = ../dummy/ether_dummy.cpp ../dummy/scsi_dummy.cpp ../dummy/serial_dummy.cpp ../dummy/xpram_dummy.cpp ../dummy/prefs_editor_dummy.cpp ../dummy/clip_dummy.cpp
 
@@ -17,7 +17,7 @@ SLIRP_SRCS = \
 ../slirp/ip_icmp.c   ../slirp/slirp.c      ../slirp/tftp.c       \
 ../slirp/ip_input.c  ../slirp/socket.c     ../slirp/udp.c
 
-XPLAT_SRCS = ../CrossPlatform/vm_alloc.cpp ../CrossPlatform/video_blit.cpp
+XPLAT_SRCS = ../CrossPlatform/video_blit.cpp
 
 SYSSRCS = extfs_unix.cpp prefs_unix.cpp
 
