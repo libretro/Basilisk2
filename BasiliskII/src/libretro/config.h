@@ -29,7 +29,7 @@
 /* #undef ENABLE_TUNTAP */
 
 /* Define if using video enabled on SEGV signals. */
-#define ENABLE_VOSF 1
+//#define ENABLE_VOSF 1
 
 /* Define to 1 if you have the `acoshl' function. */
 #define HAVE_ACOSHL 1

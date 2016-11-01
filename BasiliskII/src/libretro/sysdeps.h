@@ -1,5 +1,5 @@
 /*
- *  sysdeps.h - System dependent definitions for Unix
+ *  sysdeps.h - System dependent definitions for libretro
  *
  *  Basilisk II (C) 1997-2008 Christian Bauer
  *
@@ -129,57 +129,6 @@
 
 
 /* Data types */
-/*
-typedef unsigned char uint8;
-typedef signed char int8;
-#if SIZEOF_SHORT == 2
-typedef unsigned short uint16;
-typedef short int16;
-#elif SIZEOF_INT == 2
-typedef unsigned int uint16;
-typedef int int16;
-#else
-#error "No 2 byte type, you lose."
-#endif
-#if SIZEOF_INT == 4
-typedef unsigned int uint32;
-typedef int int32;
-#elif SIZEOF_LONG == 4
-typedef unsigned long uint32;
-typedef long int32;
-#else
-#error "No 4 byte type, you lose."
-#endif
-#if SIZEOF_LONG == 8
-#ifndef _UINT64
-typedef unsigned long uint64;
-#define _UINT64
-#endif
-typedef long int64;
-#define VAL64(a) (a ## l)
-#define UVAL64(a) (a ## ul)
-#elif SIZEOF_LONG_LONG == 8
-#ifndef _UINT64
-typedef unsigned long long uint64;
-#define _UINT64
-#endif
-typedef long long int64;
-#define VAL64(a) (a ## LL)
-#define UVAL64(a) (a ## uLL)
-#else
-#error "No 8 byte type, you lose."
-#endif
-#if SIZEOF_VOID_P == 4
-typedef uint32 uintptr;
-typedef int32 intptr;
-#elif SIZEOF_VOID_P == 8
-typedef uint64 uintptr;
-typedef int64 intptr;
-#else
-#error "Unsupported size of pointer"
-#endif
-*/
-
 typedef uint8_t uint8;
 typedef uint16_t uint16;
 typedef uint32_t uint32;
@@ -188,21 +137,10 @@ typedef int8_t int8;
 typedef int16_t int16;
 typedef int32_t int32;
 typedef int64_t int64;
-
+typedef uintptr_t uintptr;
+typedef intptr_t intptr;
 #define VAL64(a) ((int64)(a))
 #define UVAL64(a) ((uint64)(a))
-
-#if SIZEOF_VOID_P == 4
-typedef uint32 uintptr;
-typedef int32 intptr;
-#elif SIZEOF_VOID_P == 8
-typedef uint64 uintptr;
-typedef int64 intptr;
-#else
-#error "Unsupported size of pointer"
-#endif
-
-
 
 
 

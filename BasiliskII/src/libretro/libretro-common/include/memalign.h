@@ -1,7 +1,7 @@
-/* Copyright  (C) 2010-2015 The RetroArch team
+/* Copyright  (C) 2010-2016 The RetroArch team
  *
  * ---------------------------------------------------------------------------------------
- * The following license statement only applies to this file (memory_stream.h).
+ * The following license statement only applies to this file (memalign.h).
  * ---------------------------------------------------------------------------------------
  *
  * Permission is hereby granted, free of charge,
@@ -20,36 +20,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef _LIBRETRO_SDK_FILE_MEMORY_STREAM_H
-#define _LIBRETRO_SDK_FILE_MEMORY_STREAM_H
+#ifndef _LIBRETRO_MEMALIGN_H
+#define _LIBRETRO_MEMALIGN_H
 
-#include <stdint.h>
 #include <stddef.h>
 
-typedef struct memstream memstream_t;
+#include <retro_common_api.h>
 
-memstream_t *memstream_open(unsigned writing);
+RETRO_BEGIN_DECLS
 
-void memstream_close(memstream_t *stream);
+void *memalign_alloc(size_t boundary, size_t size);
 
-size_t memstream_read(memstream_t *stream, void *data, size_t bytes);
+void *memalign_alloc_aligned(size_t size);
 
-size_t memstream_write(memstream_t *stream, const void *data, size_t bytes);
+void memalign_free(void *ptr);
 
-int memstream_getc(memstream_t *stream);
-
-void memstream_putc(memstream_t *stream, int c);
-
-char *memstream_gets(memstream_t *stream, char *buffer, size_t len);
-
-size_t memstream_pos(memstream_t *stream);
-
-void memstream_rewind(memstream_t *stream);
-
-int memstream_seek(memstream_t *stream, int offset, int whence);
-
-void memstream_set_buffer(uint8_t *buffer, size_t size);
-
-size_t memstream_get_last_size(void);
+RETRO_END_DECLS
 
 #endif
