@@ -1,4 +1,5 @@
 #include <string.h>
+#include <string>
 
 #include "libretro.h"
 
@@ -8,6 +9,8 @@
 #include "sys.h"
 #include "prefs.h"
 #include "vm_alloc.h"
+#include "cpu_emulation.h"
+#include "main.h"
 
 retro_log_printf_t log_cb;
 retro_video_refresh_t video_cb;
@@ -41,16 +44,33 @@ void QuitEmulator(){
 
 void retro_init(void)
 {
+   const char* vmdir;
+   
+   char* syspath;
+   std::string path;
+   bool worked = environ_cb(RETRO_ENVIRONMENT_GET_SYSTEM_DIRECTORY,(void *)&syspath);
+   if(!worked)QuitEmulator();
+   
+   path = syspath;
+   if(path[path.length() - 1] != '/')path += '/';
+   path += "Basilisk2/";
+   
+   vmdir = path.c_str();
+   
+   int uselessargc = 0;
+   char** uselessargv = NULL;
+   
    // Read preferences
-   PrefsInit(vmdir, argc, argv);
+   PrefsInit(vmdir, uselessargc, uselessargv);
    // Init system routines
    SysInit();
    // Initialize VM system
    vm_init();
    // Initialize everything
    if (!InitAll(vmdir))QuitEmulator();
+   
    // Start 68k and jump to ROM boot routine
-   Start680x0();//may need to be moved
+   //Start680x0();//cant be used,runs forever (or must run on seprate thread)
 }
 
 void retro_deinit(void)
@@ -136,7 +156,9 @@ void retro_reset(void)
 
 void retro_run(void)
 {
-
+   //return newest frame
+   //return generated audio samples
+   //set pressed buttons
 }
 
 bool retro_load_game(const struct retro_game_info *info)

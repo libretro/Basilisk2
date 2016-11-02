@@ -1,4 +1,8 @@
 #include "libretroexports.h"
+
+//must be included first or other headers will throw errors
+#include "sysdeps.h"
+
 #include "video.h"
 
 // Add mode to list of supported modes
@@ -59,7 +63,7 @@ void VideoQuitFullScreen(void){}
 
 void VideoInterrupt(void)
 {
-	libretrovideointerrupt()
+   libretrovideointerrupt();
 }
 
 
