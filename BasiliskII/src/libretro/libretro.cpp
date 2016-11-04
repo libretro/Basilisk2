@@ -44,6 +44,7 @@ void QuitEmulator(){
 
 void retro_init(void)
 {
+   unsigned colorMode = RETRO_PIXEL_FORMAT_XRGB8888;
    const char* vmdir;
    
    char* syspath;
@@ -68,6 +69,9 @@ void retro_init(void)
    vm_init();
    // Initialize everything
    if (!InitAll(vmdir))QuitEmulator();
+   
+   
+   environ_cb(RETRO_ENVIRONMENT_SET_PIXEL_FORMAT, &colorMode);
    
    // Start 68k and jump to ROM boot routine
    //Start680x0();//cant be used,runs forever (or must run on seprate thread)

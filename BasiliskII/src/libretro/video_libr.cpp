@@ -1,9 +1,19 @@
 #include "libretroexports.h"
+#include "memalign.h"
 
 //must be included first or other headers will throw errors
 #include "sysdeps.h"
 
 #include "video.h"
+#include "video_blit.h"
+
+// Supported video modes
+static vector<video_mode> VideoModes;
+
+static bool redraw_thread_active = false;			// Flag: Redraw thread installed
+static uint8 *the_buffer = NULL;                // Mac frame buffer (where MacOS draws into)
+static uint8 *the_buffer_copy = NULL;				// Copy of Mac frame buffer (for refreshed modes)
+static uint32 the_buffer_size;						// Size of allocated the_buffer
 
 // Add mode to list of supported modes
 static void add_mode(uint32 width, uint32 height, uint32 resolution_id, uint32 bytes_per_row, video_depth depth)
@@ -32,13 +42,16 @@ static void add_window_modes(video_depth depth)
 
 bool VideoInit(bool classic)
 {
+   the_buffer = (uint8 *)memalign_alloc_aligned(1600*1200*4);//1600 by 1200 32bit //7MB framebuffer
+   the_buffer_copy = (uint8 *)memalign_alloc_aligned(1600*1200*4);//1600 by 1200 32bit //7MB framebuffer
+   the_buffer_size = 1600*1200*4;
+   
    if(classic)add_mode(512, 342, 0x80, 64, VDEPTH_1BIT);
    else {
       for (unsigned d=VDEPTH_1BIT; d<=VDEPTH_32BIT; d++) {
          add_window_modes(video_depth(d));
       }
    }
-   
    return initlibretrovideo();
 }
 
@@ -49,6 +62,14 @@ bool VideoInit(bool classic)
 
 void VideoExit(void)
 {
+   if (the_buffer) {
+      memalign_free(the_buffer);
+      the_buffer = NULL;
+   }
+   if (the_buffer_copy) {
+      memalign_free(the_buffer_copy);
+      the_buffer_copy = NULL;
+   }
    closelibretrovideo();
 }
 
