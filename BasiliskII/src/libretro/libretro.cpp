@@ -234,7 +234,7 @@ void libretrovideointerrupt(){
    
 }
 
-void refreshlibretrovideo(){
-   
+void refreshlibretrovideo(void* buffer, unsigned width, unsigned height){
+   video_cb(buffer, width, height, width * 4/*Pitch*/);
 }
 

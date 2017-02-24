@@ -1,7 +1,7 @@
-extern bool initlibretrovideo();
+bool initlibretrovideo();
 
-extern void closelibretrovideo();
+void closelibretrovideo();
 
-extern void libretrovideointerrupt();
+void libretrovideointerrupt();
 
-extern void refreshlibretrovideo();
+void refreshlibretrovideo(void* buffer, unsigned width, unsigned height);

@@ -6,6 +6,7 @@
 
 #include "video.h"
 #include "video_blit.h"
+#include "cpu_emulation.h"
 
 // Supported video modes
 static vector<video_mode> VideoModes;
@@ -52,7 +53,13 @@ bool VideoInit(bool classic)
          add_window_modes(video_depth(d));
       }
    }
-   return initlibretrovideo();
+   
+   MacFrameBaseHost = the_buffer;
+   MacFrameSize = the_buffer_size;
+   MacFrameLayout = FLAYOUT_HOST_888;
+   InitFrameBufferMapping();
+   
+   return true;
 }
 
 
@@ -70,7 +77,6 @@ void VideoExit(void)
       memalign_free(the_buffer_copy);
       the_buffer_copy = NULL;
    }
-   closelibretrovideo();
 }
 
 
@@ -84,14 +90,16 @@ void VideoQuitFullScreen(void){}
 
 void VideoInterrupt(void)
 {
-   libretrovideointerrupt();
+   //Unused in non threaded mode
 }
 
 
 // This function is called on non-threaded platforms from a timer interrupt
 void VideoRefresh(void)
 {
+   //check input changes here
+   
 	// We need to check redraw_thread_active to inhibit refreshed during
 	// mode changes on non-threaded platforms
-	if (redraw_thread_active)refreshlibretrovideo();
+	if (redraw_thread_active)refreshlibretrovideo((void*)the_buffer, 1600, 1200);
 }
