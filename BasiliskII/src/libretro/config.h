@@ -104,7 +104,7 @@
 /* #undef HAVE_CFPREFERENCESCOPYAPPVALUE */
 
 /* Define to 1 if you have the `clock_gettime' function. */
-#define HAVE_CLOCK_GETTIME 1
+//#define HAVE_CLOCK_GETTIME 1
 
 /* Define to 1 if you have the `coshl' function. */
 #define HAVE_COSHL 1
@@ -277,7 +277,7 @@
 /* #undef HAVE_LIBPOSIX4 */
 
 /* Define to 1 if you have the `pthread' library (-lpthread). */
-#define HAVE_LIBPTHREAD 1
+//#define HAVE_LIBPTHREAD 1
 
 /* Define to 1 if you have the `PTL' library (-lPTL). */
 /* #undef HAVE_LIBPTL */
@@ -329,17 +329,17 @@
 /* #undef HAVE_LONG_LONG_INT */
 
 /* Define if your system supports Mach exceptions. */
-#define HAVE_MACH_EXCEPTIONS 1
+//#define HAVE_MACH_EXCEPTIONS 1
 
 /* Define to 1 if you have the <mach/mach.h> header file. */
-#define HAVE_MACH_MACH_H 1
+//#define HAVE_MACH_MACH_H 1
 
 /* Define to 1 if you have the `mach_task_self' function. */
-#define HAVE_MACH_TASK_SELF 1
+//#define HAVE_MACH_TASK_SELF 1
 
 /* Define if your system has a working vm_allocate()-based memory allocator.
    */
-#define HAVE_MACH_VM 1
+//#define HAVE_MACH_VM 1
 
 /* Define to 1 if you have the `mbrtowc' function. */
 /* #undef HAVE_MBRTOWC */
@@ -394,33 +394,6 @@
 
 /* Define to 1 if you have the `powl' function. */
 #define HAVE_POWL 1
-
-/* Define if pthreads are available. */
-#define HAVE_PTHREADS 1
-
-/* Define to 1 if you have the `pthread_cancel' function. */
-#define HAVE_PTHREAD_CANCEL 1
-
-/* Define to 1 if you have the `pthread_cond_init' function. */
-#define HAVE_PTHREAD_COND_INIT 1
-
-/* Define to 1 if you have the `pthread_mutexattr_setprotocol' function. */
-#define HAVE_PTHREAD_MUTEXATTR_SETPROTOCOL 1
-
-/* Define to 1 if you have the `pthread_mutexattr_setpshared' function. */
-#define HAVE_PTHREAD_MUTEXATTR_SETPSHARED 1
-
-/* Define to 1 if you have the `pthread_mutexattr_settype' function. */
-#define HAVE_PTHREAD_MUTEXATTR_SETTYPE 1
-
-/* Define if the <pthread.h> defines PTHREAD_MUTEX_RECURSIVE. */
-/* #undef HAVE_PTHREAD_MUTEX_RECURSIVE */
-
-/* Define if the POSIX multithreading library has read/write locks. */
-/* #undef HAVE_PTHREAD_RWLOCK */
-
-/* Define to 1 if you have the `pthread_testcancel' function. */
-#define HAVE_PTHREAD_TESTCANCEL 1
 
 /* Define to 1 if you have the <pty.h> header file. */
 /* #undef HAVE_PTY_H */
@@ -604,15 +577,6 @@
 /* Define to 1 or 0, depending whether the compiler supports simple visibility
    declarations. */
 /* #undef HAVE_VISIBILITY */
-
-/* Define to 1 if you have the `vm_allocate' function. */
-#define HAVE_VM_ALLOCATE 1
-
-/* Define to 1 if you have the `vm_deallocate' function. */
-#define HAVE_VM_DEALLOCATE 1
-
-/* Define to 1 if you have the `vm_protect' function. */
-#define HAVE_VM_PROTECT 1
 
 /* Define if you have the 'wchar_t' type. */
 /* #undef HAVE_WCHAR_T */
@@ -823,7 +787,7 @@
 #endif
 
 /* Define to 1 if the X Window System is missing or not being used. */
-/* #undef X_DISPLAY_MISSING */
+#define X_DISPLAY_MISSING 1
 
 /* Enable large inode numbers on Mac OS X 10.5.  */
 #ifndef _DARWIN_USE_64_BIT_INODE
