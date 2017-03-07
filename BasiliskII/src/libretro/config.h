@@ -12,15 +12,6 @@
 /* Define to 1 if using `alloca.c'. */
 /* #undef C_ALLOCA */
 
-/* Define is using ESD. */
-/* #undef ENABLE_ESD */
-
-/* Define if using "mon". */
-/* #undef ENABLE_MON */
-
-/* Define if using native 68k mode. */
-/* #undef ENABLE_NATIVE_M68K */
-
 /* Define to 1 if translation of program messages to the user's native
    language is requested. */
 /* #undef ENABLE_NLS */
@@ -163,21 +154,6 @@
 /* Define to 1 if you have the `floorl' function. */
 #define HAVE_FLOORL 1
 
-/* Define if framework AppKit is available. */
-#define HAVE_FRAMEWORK_APPKIT 1
-
-/* Define if framework Carbon is available. */
-#define HAVE_FRAMEWORK_CARBON 1
-
-/* Define if framework CoreFoundation is available. */
-#define HAVE_FRAMEWORK_COREFOUNDATION 1
-
-/* Define if framework IOKit is available. */
-#define HAVE_FRAMEWORK_IOKIT 1
-
-/* Define if framework SDL is available. */
-/* #undef HAVE_FRAMEWORK_SDL */
-
 /* Define to 1 if you have the `fwprintf' function. */
 /* #undef HAVE_FWPRINTF */
 
@@ -258,60 +234,11 @@
 /* Define if your <locale.h> file defines LC_MESSAGES. */
 /* #undef HAVE_LC_MESSAGES */
 
-/* Define to 1 if you have the `curses' library (-lcurses). */
-/* #undef HAVE_LIBCURSES */
-
-/* Define to 1 if you have the `c_r' library (-lc_r). */
-/* #undef HAVE_LIBC_R */
-
-/* Define to 1 if you have the `Hcurses' library (-lHcurses). */
-/* #undef HAVE_LIBHCURSES */
-
 /* Define to 1 if you have the `m' library (-lm). */
 #define HAVE_LIBM 1
 
-/* Define to 1 if you have the `ncurses' library (-lncurses). */
-/* #undef HAVE_LIBNCURSES */
-
-/* Define to 1 if you have the `posix4' library (-lposix4). */
-/* #undef HAVE_LIBPOSIX4 */
-
-/* Define to 1 if you have the `pthread' library (-lpthread). */
-//#define HAVE_LIBPTHREAD 1
-
-/* Define to 1 if you have the `PTL' library (-lPTL). */
-/* #undef HAVE_LIBPTL */
-
-/* Define to 1 if you have the `readline' library (-lreadline). */
-/* #undef HAVE_LIBREADLINE */
-
-/* Define to 1 if you have the `rt' library (-lrt). */
-/* #undef HAVE_LIBRT */
-
-/* Define to 1 if you have the `termcap' library (-ltermcap). */
-/* #undef HAVE_LIBTERMCAP */
-
-/* Define to 1 if you have the `terminfo' library (-lterminfo). */
-/* #undef HAVE_LIBTERMINFO */
-
-/* Define to 1 if you have the `termlib' library (-ltermlib). */
-/* #undef HAVE_LIBTERMLIB */
-
-/* Define to 1 if you have the `vhd' library (-lvhd). */
-/* #undef HAVE_LIBVHD */
-
 /* Define to 1 if you have the <limits.h> header file. */
-/* #undef HAVE_LIMITS_H */
-
-/* Define if there is a linker script to relocate the executable above
-   0x70000000. */
-/* #undef HAVE_LINKER_SCRIPT */
-
-/* Define to 1 if you have the <linux/if.h> header file. */
-/* #undef HAVE_LINUX_IF_H */
-
-/* Define to 1 if you have the <linux/if_tun.h> header file. */
-/* #undef HAVE_LINUX_IF_TUN_H */
+#define HAVE_LIMITS_H 1
 
 /* Define to 1 if the system has the type `loff_t'. */
 /* #undef HAVE_LOFF_T */
@@ -327,19 +254,6 @@
 
 /* Define to 1 if the system has the type 'long long int'. */
 /* #undef HAVE_LONG_LONG_INT */
-
-/* Define if your system supports Mach exceptions. */
-//#define HAVE_MACH_EXCEPTIONS 1
-
-/* Define to 1 if you have the <mach/mach.h> header file. */
-//#define HAVE_MACH_MACH_H 1
-
-/* Define to 1 if you have the `mach_task_self' function. */
-//#define HAVE_MACH_TASK_SELF 1
-
-/* Define if your system has a working vm_allocate()-based memory allocator.
-   */
-//#define HAVE_MACH_VM 1
 
 /* Define to 1 if you have the `mbrtowc' function. */
 /* #undef HAVE_MBRTOWC */
@@ -448,20 +362,20 @@
 #define HAVE_SLIRP 1
 
 /* Define to 1 if you have the `snprintf' function. */
-/* #undef HAVE_SNPRINTF */
+#define HAVE_SNPRINTF 1
 
 /* Define to 1 if you have the `sqrtl' function. */
 #define HAVE_SQRTL 1
 
 /* Define to 1 if you have the <stddef.h> header file. */
-/* #undef HAVE_STDDEF_H */
+#define HAVE_STDDEF_H 1
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H 1
 
 /* Define if <stdint.h> exists, doesn't clash with <sys/types.h>, and declares
    uintmax_t. */
-/* #undef HAVE_STDINT_H_WITH_UINTMAX */
+#define HAVE_STDINT_H_WITH_UINTMAX
 
 /* Define to 1 if you have the <stdlib.h> header file. */
 #define HAVE_STDLIB_H 1
@@ -501,9 +415,6 @@
 
 /* Define to 1 if you have the <sys/bitypes.h> header file. */
 /* #undef HAVE_SYS_BITYPES_H */
-
-/* Define to 1 if you have the <sys/bsdtty.h> header file. */
-/* #undef HAVE_SYS_BSDTTY_H */
 
 /* Define to 1 if you have the <sys/filio.h> header file. */
 #define HAVE_SYS_FILIO_H 1
@@ -647,15 +558,8 @@
 /* Define to the version of this package. */
 #define PACKAGE_VERSION "1.0"
 
-/* Define if the __PAGEZERO Mach-O Low Memory Globals hack works on this
-   system. */
-/* #undef PAGEZERO_HACK */
-
 /* Define if <inttypes.h> exists and defines unusable PRI* macros. */
 /* #undef PRI_MACROS_BROKEN */
-
-/* Define if the pthread_in_use() detection is hard. */
-/* #undef PTHREAD_IN_USE_DETECTION_HARD */
 
 /* Define as the return type of signal handlers (`int' or `void'). */
 #define RETSIGTYPE void
@@ -690,20 +594,6 @@
 /* The size of `void *', as computed by sizeof. */
 #define SIZEOF_VOID_P 8
 
-/* Define as the maximum value of type 'size_t', if the system doesn't define
-   it. */
-#ifndef SIZE_MAX
-/* # undef SIZE_MAX */
-#endif
-
-/* If using the C implementation of alloca, define if you know the
-   direction of stack growth for your system; otherwise it will be
-   automatically deduced at runtime.
-	STACK_DIRECTION > 0 => grows toward higher addresses
-	STACK_DIRECTION < 0 => grows toward lower addresses
-	STACK_DIRECTION = 0 => direction of growth unknown */
-/* #undef STACK_DIRECTION */
-
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
 
@@ -712,39 +602,6 @@
 
 /* Define to 1 if your <sys/time.h> declares `struct tm'. */
 /* #undef TM_IN_SYS_TIME */
-
-/* Define if BSD-style non-blocking I/O is to be used */
-/* #undef USE_FIONBIO */
-
-/* Define if the POSIX multithreading library can be used. */
-/* #undef USE_POSIX_THREADS */
-
-/* Define if references to the POSIX multithreading library should be made
-   weak. */
-/* #undef USE_POSIX_THREADS_WEAK */
-
-/* Define if the GNU Pth multithreading library can be used. */
-/* #undef USE_PTH_THREADS */
-
-/* Define if references to the GNU Pth multithreading library should be made
-   weak. */
-/* #undef USE_PTH_THREADS_WEAK */
-
-/* Define to enble SDL support */
-/* #undef USE_SDL */
-
-/* Define to enable SDL audio support */
-/* #undef USE_SDL_AUDIO */
-
-/* Define to enable SDL video graphics support */
-/* #undef USE_SDL_VIDEO */
-
-/* Define if the old Solaris multithreading library can be used. */
-/* #undef USE_SOLARIS_THREADS */
-
-/* Define if references to the old Solaris multithreading library should be
-   made weak. */
-/* #undef USE_SOLARIS_THREADS_WEAK */
 
 /* Enable extensions on AIX 3, Interix.  */
 #ifndef _ALL_SOURCE

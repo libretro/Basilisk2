@@ -17,13 +17,14 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#include <errno.h>
+
 #include "sysdeps.h"
 #include "macos_util.h"
 #include "timer.h"
-#include "features_cpu.h"
 
-
-#include <errno.h>
+#include "retro_miscellaneous.h"
+#include "features/features_cpu.h"
 
 #define DEBUG 0
 #include "debug.h"
@@ -48,8 +49,8 @@ void Microseconds(uint32 &hi, uint32 &lo)
 
 uint32 TimerDateTime(void)
 {
-	//return TimeToMacTime(time(NULL));
-   return TimeToMacTime(cpu_features_get_time_usec() / 1000000);
+	return TimeToMacTime(time(NULL));
+   //return TimeToMacTime(cpu_features_get_time_usec() / 1000000);
 }
 
 
@@ -59,7 +60,8 @@ uint32 TimerDateTime(void)
 
 void timer_current_time(tm_time_t &t)
 {
-	gettimeofday(&t, NULL);
+	//time(&t);
+   clock_gettime(CLOCK_REALTIME, &t);
 }
 
 
@@ -69,12 +71,14 @@ void timer_current_time(tm_time_t &t)
 
 void timer_add_time(tm_time_t &res, tm_time_t a, tm_time_t b)
 {
-	res.tv_sec = a.tv_sec + b.tv_sec;
+   /*
 	res.tv_usec = a.tv_usec + b.tv_usec;
 	if (res.tv_usec >= 1000000) {
 		res.tv_sec++;
 		res.tv_usec -= 1000000;
 	}
+   */
+   res.tv_sec = a.tv_sec + b.tv_sec;
 }
 
 
@@ -84,12 +88,14 @@ void timer_add_time(tm_time_t &res, tm_time_t a, tm_time_t b)
 
 void timer_sub_time(tm_time_t &res, tm_time_t a, tm_time_t b)
 {
-	res.tv_sec = a.tv_sec - b.tv_sec;
+   /*
 	res.tv_usec = a.tv_usec - b.tv_usec;
 	if (res.tv_usec < 0) {
 		res.tv_sec--;
 		res.tv_usec += 1000000;
 	}
+   */
+   res.tv_sec = a.tv_sec - b.tv_sec;
 }
 
 
@@ -99,10 +105,13 @@ void timer_sub_time(tm_time_t &res, tm_time_t a, tm_time_t b)
 
 int timer_cmp_time(tm_time_t a, tm_time_t b)
 {
+   /*
 	if (a.tv_sec == b.tv_sec)
 		return a.tv_usec - b.tv_usec;
 	else
 		return a.tv_sec - b.tv_sec;
+   */
+   return a.tv_sec - b.tv_sec;
 }
 
 
@@ -115,11 +124,11 @@ void timer_mac2host_time(tm_time_t &res, int32 mactime)
 	if (mactime > 0) {
 		// Time in milliseconds
 		res.tv_sec = mactime / 1000;
-		res.tv_usec = (mactime % 1000) * 1000;
+		//res.tv_usec = (mactime % 1000) * 1000;
 	} else {
 		// Time in negative microseconds
 		res.tv_sec = -mactime / 1000000;
-		res.tv_usec = -mactime % 1000000;
+		//res.tv_usec = -mactime % 1000000;
 	}
 }
 
@@ -135,7 +144,8 @@ int32 timer_host2mac_time(tm_time_t hosttime)
 	if (hosttime.tv_sec < 0)
 		return 0;
 	else {
-		uint64 t = (uint64)hosttime.tv_sec * 1000000 + hosttime.tv_usec;
+		//uint64 t = (uint64)hosttime.tv_sec * 1000000 + hosttime.tv_usec;
+      uint64 t = (uint64)hosttime.tv_sec * 1000000;
       
 		if (t > 0x7fffffff)
 			return t / 1000;	// Time in milliseconds
@@ -156,7 +166,10 @@ uint64 GetTicks_usec(void)
 	gettimeofday(&t, NULL);
 	return (uint64)t.tv_sec * 1000000 + t.tv_usec;
    */
-   return cpu_features_get_time_usec();
+   //return cpu_features_get_time_usec();
+   tm_time_t t;
+   clock_gettime(CLOCK_REALTIME, &t);
+   return (uint64)t.tv_sec * 1000000;
 }
 
 void Delay_usec(uint32 usec)
@@ -184,4 +197,5 @@ void idle_wait(void)
 
 void idle_resume(void)
 {
+   //nothing special is required to resume when using single thread
 }
