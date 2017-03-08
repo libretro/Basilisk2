@@ -31,7 +31,6 @@
 #endif
 
 
-
 #define DEBUG 0
 #include "debug.h"
 
@@ -333,7 +332,7 @@ void *Sys_open(const char *name, bool read_only)
 		WarningAlert(str);
 		sprintf(str, "umount %s", mount_name);
 		if (system(str)) {
-			sprintf(str, GetString(STR_CANNOT_UNMOUNT_WARN), mount_name, strerror(errno));
+			sprintf(str, GetString(STR_CANNOT_UNMOUNT_WARN), mount_name, strerror(0/*errno*/));
 			WarningAlert(str);
 			return NULL;
 		}
@@ -374,26 +373,8 @@ void *Sys_open(const char *name, bool read_only)
 	}
 
 	int open_flags = (read_only ? O_RDONLY : O_RDWR);
-#if defined(__linux__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__MACOSX__)
-	open_flags |= (is_cdrom ? O_NONBLOCK : 0);
-#endif
-#if defined(__MACOSX__)
-	open_flags |= (is_file ? O_EXLOCK | O_NONBLOCK : 0);
-#endif
 	int fd = open(name, open_flags);
-#if defined(__MACOSX__)
-	if (fd < 0 && (open_flags & O_EXLOCK)) {
-		if (errno == EOPNOTSUPP) {
-			// File system does not support locking. Try again without.
-			open_flags &= ~O_EXLOCK;
-			fd = open(name, open_flags);
-		} else if (errno == EAGAIN) {
-			// File is likely already locked by another process.
-			printf("WARNING: Cannot open %s (%s)\n", name, strerror(errno));
-			return NULL;
-		}
-	}
-#endif
+
 	if (fd < 0 && !read_only) {
 		// Read-write failed, try read-only
 		read_only = true;
@@ -415,49 +396,13 @@ void *Sys_open(const char *name, bool read_only)
 			lseek(fd, 0, SEEK_SET);
 			read(fd, data, 256);
 			FileDiskLayout(size, data, fh->start_byte, fh->file_size);
-		} else {
-			struct stat st;
-			if (fstat(fd, &st) == 0) {
-				fh->is_media_present = true;
-				if (S_ISBLK(st.st_mode)) {
-					fh->is_cdrom = is_cdrom;
-#if defined(__linux__)
-					fh->is_floppy = (MAJOR(st.st_rdev) == FLOPPY_MAJOR);
-#ifdef CDROM_GET_CAPABILITY
-					if (is_cdrom) {
-						fh->cdrom_cap = ioctl(fh->fd, CDROM_GET_CAPABILITY);
-						if (fh->cdrom_cap < 0)
-							fh->cdrom_cap = 0;
-					}
-#endif
-#elif defined(__FreeBSD__)
-					fh->is_floppy = ((st.st_rdev >> 16) == 2);
-#ifdef CDIOCCAPABILITY
-					if (is_cdrom) {
-						if (ioctl(fh->fd, CDIOCCAPABILITY, &fh->cdrom_cap) < 0)
-							memset(&fh->cdrom_cap, 0, sizeof(fh->cdrom_cap));
-					}
-#endif
-#elif defined(__NetBSD__)
-					fh->is_floppy = ((st.st_rdev >> 16) == 2);
-#endif
-				}
-#if defined __MACOSX__
-				if (is_cdrom) {
-					fh->is_cdrom = true;
-					fh->is_floppy = false;
-					if (cdrom_open_1(fh))
-						fh->is_media_present = true;
-				}
-#endif
-			}
 		}
 		if (fh->is_floppy && first_floppy == NULL)
 			first_floppy = fh;
 		sys_add_mac_file_handle(fh);
 		return fh;
 	} else {
-		printf("WARNING: Cannot open %s (%s)\n", name, strerror(errno));
+		printf("WARNING: Cannot open %s (%s)\n", name, strerror(0/*errno*/));
 		return NULL;
 	}
 }

@@ -107,8 +107,8 @@ void retro_get_system_info(struct retro_system_info *info)
    memset(info, 0, sizeof(*info));
    info->library_name     = "Basilisk2";
    info->library_version  = "v1.0";
-   info->need_fullpath    = false;
-   info->valid_extensions = NULL; /* Anything is fine, we don't care. */
+   info->need_fullpath    = true;
+   info->valid_extensions = "img|bin|cue|dsk";
 }
 
 void retro_get_system_av_info(struct retro_system_av_info *info)

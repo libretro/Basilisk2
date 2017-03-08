@@ -7,9 +7,10 @@ SOURCES_C := $(LIBRETRO_COMM_DIR)/memmap/memmap.c \
    $(LIBRETRO_COMM_DIR)/memmap/memalign.c \
    $(LIBRETRO_COMM_DIR)/features/features_cpu.c \
    $(LIBRETRO_COMM_DIR)/compat/compat_strl.c \
-   $(LIBRETRO_COMM_DIR)/streams/file_stream.c
+   $(LIBRETRO_COMM_DIR)/streams/file_stream.c \
+   $(LIBRETRO_COMM_DIR)/file/retro_stat.c
 
-LIBRETRO_SRCS = libretro.cpp video_libr.cpp audio_libr.cpp user_strings_libr.cpp timer_libr.cpp vm_alloc.cpp sys_libr.cpp
+LIBRETRO_SRCS = libretro.cpp main_libr.cpp video_libr.cpp audio_libr.cpp user_strings_libr.cpp timer_libr.cpp vm_alloc.cpp sys_libr.cpp
 
 UNUSEDINTERFACE = ../dummy/ether_dummy.cpp ../dummy/scsi_dummy.cpp ../dummy/serial_dummy.cpp ../dummy/xpram_dummy.cpp ../dummy/prefs_editor_dummy.cpp ../dummy/clip_dummy.cpp
 
@@ -25,7 +26,7 @@ XPLAT_SRCS = ../CrossPlatform/video_blit.cpp
 
 SYSSRCS = extfs_unix.cpp prefs_unix.cpp
 
-CPUSRCS = ../uae_cpu/basilisk_glue.cpp ../uae_cpu/memory.cpp ../uae_cpu/newcpu.cpp ../uae_cpu/readcpu.cpp ../uae_cpu/fpu/fpu_ieee.cpp ../uae_cpu/cpustbl.cpp ../uae_cpu/cpuemu.cpp
+CPUSRCS = ../uae_cpu/basilisk_glue.cpp ../uae_cpu/memory.cpp ../uae_cpu/newcpu.cpp ../uae_cpu/readcpu.cpp ../uae_cpu/opcodes.cpp ../uae_cpu/fpu/fpu_ieee.cpp ../uae_cpu/cpustbl.cpp ../uae_cpu/cpuemu.cpp
 
 COMMONFLAGS += -DHAVE_CONFIG_H -DFPU_IEEE
 
