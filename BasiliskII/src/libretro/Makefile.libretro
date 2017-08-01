@@ -30,7 +30,7 @@ endif
 
 ifeq ($(platform), unix)
 	TARGET := $(TARGET_NAME)_libretro.so
-	LDFLAGS += -shared -Wl,--version-script=libretro/link.T
+	LDFLAGS += -shared -Wl,--version-script=link.T
 
 	fpic = -fPIC
 else ifeq ($(platform), osx)
