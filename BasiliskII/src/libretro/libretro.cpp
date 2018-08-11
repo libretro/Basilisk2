@@ -204,12 +204,18 @@ bool retro_unserialize(const void *data_, size_t size)
 
 void *retro_get_memory_data(unsigned id)
 {
-   
+   if ( id == RETRO_MEMORY_SYSTEM_RAM )
+      return RAMBaseHost;
+
+   return NULL ;
 }
 
 size_t retro_get_memory_size(unsigned id)
 {
-   
+   if ( id == RETRO_MEMORY_SYSTEM_RAM )
+      return RAMSize   ;
+
+   return 0 ;
 }
 
 void retro_cheat_reset(void){}
