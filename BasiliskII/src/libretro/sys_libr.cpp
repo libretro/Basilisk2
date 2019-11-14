@@ -331,11 +331,13 @@ void *Sys_open(const char *name, bool read_only)
 		sprintf(str, GetString(STR_VOLUME_IS_MOUNTED_WARN), mount_name);
 		WarningAlert(str);
 		sprintf(str, "umount %s", mount_name);
+		#ifndef IOS
 		if (system(str)) {
 			sprintf(str, GetString(STR_CANNOT_UNMOUNT_WARN), mount_name, strerror(0/*errno*/));
 			WarningAlert(str);
 			return NULL;
 		}
+		#endif
 	}
 
 	// Open file/device
