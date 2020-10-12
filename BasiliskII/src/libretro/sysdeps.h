@@ -38,7 +38,9 @@
 # include <unistd.h>
 #endif
 
+#if 0
 #include <netinet/in.h>
+#endif
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
